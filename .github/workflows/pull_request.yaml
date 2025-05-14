@@ -1,0 +1,26 @@
+name: integration test
+run-name: 🚀 | Pipeline Integration Test| ${{ github.actor }}
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+            python-version: '3.11'
+      - name: install python dependencies
+        run: pip install --upgrade pip && pip install -r requirements.txt
+      - name: start MLFlow server
+        run: python main.py start-server
+      - name: run integration tests - train
+        run: python main.py train
+      - name: run integration tests - inference
+        run: python main.py infer
+
