@@ -1,8 +1,9 @@
 """This is the training pipeline for the model.
 It handles the training process, including loading data, training the model, and saving the model.
 """
+# Feel free to import any libraries you need
+
 import mlflow
-from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -34,43 +35,29 @@ def _train():
     # Remember the same process needs to be done in the inference pipeline too
     # Feel free to not only add but also edit the code if you need to
 
-    # 3. Create pipeline to store scaler with model
+    # 3. Create scaler and model
+    scaler = StandardScaler()
+
     params = {
         "max_depth": 3,
         "min_samples_split": 2,
     }
-    pipeline = Pipeline([
-        # 3. Scale features
-        ("scaler", StandardScaler()),
-        # 4. Add model
-        ("model", DecisionTreeClassifier(**params)),
-    ])
+
+    model = DecisionTreeClassifier()
 
     # 4. Train test split
-    X_train, X_test, y_train, y_test = train_test_split(
-        df.drop("Species", axis=1), df["Species"], test_size=0.5, random_state=42
-    )
+    # Pleae fill in the code to split the data into train and evaluation sets
 
-    # 5. Train pipeline
-    pipeline.fit(X_train, y_train)
+    # 5. Train
+    # Please fill in the code to scale data and train the model
 
     # 5. Evaluate model
-    predictions = pipeline.predict(X_test)
-    accuracy = accuracy_score(y_test, predictions)
+    predictions = model.predict()
+    accuracy = accuracy_score()
 
     # 6. Save model, metrics and parameters
     # Start an MLflow run
     with mlflow.start_run():
-        # Log the hyperparameters
-        mlflow.log_params(params)
-
-        # Log the loss metric
-        mlflow.log_metric("accuracy", accuracy)
-
-        # Log the model
-        mlflow.sklearn.log_model(
-            sk_model=pipeline,
-            artifact_path="test_model",
-            input_example=X_train,
-            registered_model_name="test_model",
-        )
+        # save model
+        # anything else?
+        pass

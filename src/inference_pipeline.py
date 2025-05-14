@@ -23,8 +23,9 @@ def _infer():
     # 3. Load model
     model_name = "test_model"
     client = mlflow.MlflowClient()
-    latest_version = max([model.version for model in client.search_model_versions(f"name='{model_name}'")])
-    model = mlflow.pyfunc.load_model(model_uri=f"models:/{model_name}/{latest_version}")
+    # how to get the latest version of the model?
+    # Looks like this is useful: https://mlflow.org/docs/latest/model-registry/#listing-and-searching-mlflow-models
+
 
     # 4. Make predictions
     predictions = model.predict(df)
