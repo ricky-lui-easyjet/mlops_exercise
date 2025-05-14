@@ -17,6 +17,7 @@ def _train():
 
     configure_server()
     mlflow.set_experiment("My experiment")
+    model_name = "test_model"
 
     # 1. Load data
     df = load_data("src/data/train.csv")
@@ -60,4 +61,5 @@ def _train():
     with mlflow.start_run():
         # save model
         # anything else?
+        # May be this is useful: https://mlflow.org/docs/latest/getting-started/intro-quickstart/index.html#step-4---log-the-model-and-its-metadata-to-mlflow
         pass
